@@ -194,7 +194,8 @@
               ],
               "loadBalancerInboundNatRules": [
                 {
-                  "id": "[concat(variables('lbID1'),'/inboundNatRules/RDP-VM', copyindex())]"
+                  "id": "[concat(variables('lbID1'),'/inboundNatRules/RDP-VM', copyindex())]",
+                  "id": "[concat(variables('lbID1'),'/inboundNatRules/IPERF-VM', copyindex())]"
                 }
               ]
             }
@@ -345,6 +346,29 @@
       }
     },
 
+    {
+      "apiVersion": "2016-09-01",
+      "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+      "name": "[concat(parameters('lbName2'), '/', 'IPERF-VM', copyIndex())]",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "lbNatLoop",
+        "count": "[variables('numberOfInstances')]"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Network/loadBalancers/', parameters('lbName2'))]"
+      ],
+      "properties": {
+        "frontendIPConfiguration": {
+          "id": "[variables('frontEndIPConfigID2')]"
+        },
+        "protocol": "tcp",
+        "frontendPort": "[copyIndex(5400)]",
+        "backendPort": "[copyIndex(5400)]",
+        "enableFloatingIP": false
+      }
+    },
+    
     {
       "apiVersion": "2017-03-30",
       "type": "Microsoft.Compute/virtualMachines",
