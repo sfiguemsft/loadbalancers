@@ -10,4 +10,4 @@
 </a> 
 
 ###
-![image](https://github.com/sfiguemsft/loadbalancers/blob/master/images/ILB.png){:height="360px" width="360px"}
+![image](https://github.com/sfiguemsft/loadbalancers/blob/master/images/ILB.png)
